@@ -2,10 +2,28 @@
 
 {% block content %}
 <form action='' method='POST'>{% csrf_token %}
-    {{ form.title }}
-    {{ form.memo }}
-    {{ form.priority }}
-    {{ form.duedate }}
-    <input type="submit" value='更新する'>
+    <form action="" method="post">
+        　　{% csrf_token %}
+        <!-- {{form.as_p}} -->
+        　　
+        　<div class="form-group">
+            <label for="id_title">タイトル</label>
+            <p>{{ form.title }}</p>
+        </div>
+        　　<div class="form-group">
+            <label for="id_memo">本文</label>
+            <p>{{ form.memo }}</p>
+        </div>
+        　　<div class="form-group">
+            <label for="id_priority">本文</label>
+            <p>{{ form.priority }}</p>
+        </div>
+        <div class="form-group">
+            <label for="id_text">本文</label>
+            <p>{{ form.duedate }}</p>
+        </div>
+        　　<div class="form-group col-md-11">
+            　　<button type="submit" class="btn btn-block btn-outline-primary">save</button>
+        </div>
 </form>
 {% endblock content %}

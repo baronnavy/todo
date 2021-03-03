@@ -1,8 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" method="POST">{% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="作成する">
-</form>
+
+<div class="container" >
+        <div class="col-md-6 offset-md-3">
+            　　<form action="" method="post">
+                　　{% csrf_token %}
+                <!-- {{form.as_p}} -->
+                　　
+                　<div class="form-group">
+                    <label for="id_title">タイトル</label>
+                    <p>{{ form.title }}</p>
+                </div>
+                　　<div class="form-group">
+                    <label for="id_memo">本文</label>
+                    <p>{{ form.memo }}</p>
+                </div>
+                　　<div class="form-group">
+                    <label for="id_priority">本文</label>
+                    <p>{{ form.priority }}</p>
+                </div>
+                <div class="form-group">
+                    <label for="id_text">日付</label>
+                    <p>{{ form.duedate }}</p>
+                </div>
+                　　<div class="form-group col-md-3">
+                    　　<button type="submit" class="btn btn-block btn-outline-primary">save</button>
+                </div> 　　
+            </form>
+        </div><!-- end col-md-6 offset-md-3 -->
+</div><!-- end container-fluid -->
+
 {% endblock content %}

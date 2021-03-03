@@ -1,27 +1,818 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+
+
+{% endblock customcss %}
 
 {% block header %}
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Todolist</h1>
-        <p class="lead">Todolistを作って毎日を効率的に過ごしましょう。</p>
+<!-- <link rel="stylesheet" href="dashboard.css"> -->
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="ajax.js?ver=1.0"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <a class="navbar-brand" href="#">Tracking System</a>
+
+    <ul class="navbar-nav">
+      <div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        項目1
+          </button>
+        <ul class="dropdown-menu">
+            <li><button class="dropdown-item" value="項目1">項目1</button></li>
+            <li><button class="dropdown-item" value="項目2">項目2</button></li>
+            <li><button class="dropdown-item" value="項目3">項目3</button></li>
+        </ul>
     </div>
-</div>
+      
+   </ul>
+   
+
+    {%if value == '項目1' %}
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" href="#">ログアウト</button>
+    </form>
+    {% endif %}
+
+  </div>
+</nav>
+
+
 {% endblock %}
 
 {% block content %}
+
+
+<form action="" method="post">{% csrf_token %}
+  <select class="form-control" name="author">
+    <option value="{{author}}">{{author}}</option>
+    {% for item in a %}
+    <!-- <option selected="selected" disabled>Select an author</option> -->
+    
+    <option value="{{item}}">{{item}}</option>
+    
+    {% endfor %}
+    
+  </select>
+  <button type="submit" class="btn btn-primary" id="abc">Submit</button>
+</form>
+
+<div class="container-fuild border">
+  <div class="row">
+    <div class="col-2">
+      <div class="list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action active">
+          Cras justo odio
+        </a>
+        <a href="{% url 'list' %}"  class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+        <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+      </div>
+    </div>
+    
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="tab-content-1"
+            role="tabpanel" aria-labelledby="tab-menu-1">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div class="tab-pane fade" id="tab-content-2"
+            role="tabpanel" aria-labelledby="tab-menu-2">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>2,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+    
+               
+              </tbody>
+            </table>
+          </div>
+          
+          </div>
+        <div class="tab-pane fade" id="tab-content-3"
+            role="tabpanel" aria-labelledby="tab-menu-3">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+              </tbody>
+            </table>
+          
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <link rel="stylesheet" href="style.css"> -->
+<form name="name_form" action="#" method="POST">
+  <!-- <form name="name_form" action="/test_ajax_app/" method="POST"> -->
+    {% csrf_token %}
+    <input type="text" id="id_input_text" name="name_input_text" value="999.99">
+    <input class="btn" type="submit"> 
+  </form>
+
+  <span id="id_div_ajax_response">
+    AJAX RESPONSE
+  </span>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 pt-4 d-md-block navbar-dark bg-light sidebar d-print-none">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active text-secondary" href="#">
+              <span data-feather="home"></span>
+              <!-- Dashboard <span class="sr-only">(current)</span> -->
+              ダッシュボード <span class="sr-only">(現在位置)</span>
+              
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-secondary" href="#">
+              <span data-feather="file"></span>
+              <!-- Orders -->
+              注文
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-secondary" href="#">
+              <span data-feather="shopping-cart"></span>
+              <!-- Products -->
+              商品
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-secondary" href="#">
+              <span data-feather="users"></span>
+              <!-- Customers -->
+              お客様
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-secondary" href="#">
+              <span data-feather="bar-chart-2"></span>
+              <!-- Reports -->
+              レポート
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-secondary" href="#">
+              <span data-feather="layers"></span>
+              <!-- Integrations -->
+              インテグレーション
+            </a>
+          </li>
+        </ul>
+
+    
+      </div>
+    </nav>
+
+
+    <style>
+
+.sidebar {
+    /* position: fixed; */
+    top: 100;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(13, 14, 13, 0.1);
+    position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.sidebar :hover{
+   /* border:solid 1px black; */
+   text-decoration: underline;
+   transform: scale(1.1, 1);
+
+ }
+
+ .sidebar:hover::after {
+  
+}
+    </style>
+    <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <!-- <h1 class="h2">Dashboard</h1> -->
+        <h3 class="h3">ダッシュボード</h3>
+        {% if value == "項目1" %}
+       <h7 class="text-white" id="result"></h7>
+       {% endif %}
+      </div>
+
+      <!-- <h2>Section title</h2> -->
+      <h2 >タイトル</h2>
+      <div class="table-responsive" id="p1">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>1,002</td>
+              <td>amet</td>
+              <td>consectetur</td>
+              <td>adipiscing</td>
+              <td>elit</td>
+            </tr>
+
+           
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive" id="p2">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2,001</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>2,002</td>
+              <td>amet</td>
+              <td>consectetur</td>
+              <td>adipiscing</td>
+              <td>elit</td>
+            </tr>
+
+           
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Icons 
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script> -->
+
+
+
+
+ <table class="table">
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <th>1</th>
+          <td>Hanako</td>
+          <td>Qiita</td>
+          <td>@Hanaq</td>
+      </tr>
+      <tr>
+          <th>2</th>
+          <td>Taro</td>
+          <td>Qiita</td>
+          <td>@TaroQ</td>
+      </tr>
+  </tbody>
+</table>
+
+{{ qs_json }}
+
 <div class='container'>
     <a href="{% url 'create' %}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">新規作成</a>
-    {% for item in object_list %}
-    <div class="alert alert-{{ item.priority }}" role="alert">
-        <p>{{ item.title }}　期日：{{ item.duedate }}</p>
-        <a href="{% url 'update' item.pk  %}" class="btn btn-info" tabindex="-1" role="button"
-            aria-disabled="true">編集</a>
-        <a href="{% url 'delete' item.pk %}" class="btn btn-primary" tabindex="-1" role="button"
-            aria-disabled="true">削除</a>
-        <a href="{% url 'detail' item.pk %}" class="btn btn-success" tabindex="-1" role="button"
-            aria-disabled="true">詳細</a>
+    
+    {% for k in qs_json.items %}
+
+        <p>　期日：{{ k.title }}</p>
+        
+        
+        
     </div>
+
     {% endfor %}
 </div>
+
+        <div>
+        <canvas id="canvas" width="600" height="500"  style="background-color:yellow;"></canvas>
+
+   
+        <button type="button" id="btn">グラフを更新</button>
+      </div>
+      <div>
+        <canvas id="canvas1" width="600" height="500"  style="background-color:rgb(255, 0, 191);"></canvas>
+      </div>
+      
+    
+        <div class="col-md-6 offset-md-3">
+            　　<form action="" method="post">
+                　　{% csrf_token %}
+                <!-- {{form.as_p}} -->
+                　　
+
+                <div class="form-group">
+             
+                    <p>{{ form.priority }}</p>
+              
+                </div>
+                <!-- 　<div class="form-group">
+                    <label for="id_title">タイトル</label>
+                    <p>{{ form.title }}</p>
+                </div> -->
+                <!-- 　　<div class="form-group">
+                    <label for="id_memo">本文</label>
+                    <p>{{ form.memo }}</p>
+                </div> -->
+                <!-- 　　<div class="form-group">
+                    <label for="id_priority">本文</label>
+                    <p>{{ form.priority }}</p>
+                </div> -->
+                <!-- <div class="form-group">
+                    <label for="id_text">日付</label>
+                    <p>{{ form.duedate }}</p>
+                </div> -->
+                　　<div class="form-group col-md-3">
+                    　　<button type="submit" class="btn btn-block btn-outline-primary">save</button>
+                </div> 　　
+            </form>
+      </div><!-- end col-md-6 offset-md-3 -->
+</div>
+
+
+
+        
+<!-- <select name=”month”> -->
+  <div class="dropdown" id='bbb'> 
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown button
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {% for k in a %}
+      <a class="dropdown-item" id='aaa' value="{{ k }}">{{ k }}</a>
+      {% endfor %}
+    </div>
+
+
+    <form action="" method="get" id="geolocation" >{% csrf_token %}
+      <select name="example">
+        <option value="サンプル1" name="abcd1">サンプル1</option>
+        <option value="サンプル2" name="abcd2">サンプル2</option>
+        <option value="サンプル3" name="abcd3">サンプル3</option>
+        </select>
+    <button type="submit" class="btn btn-primary" id="abc">Submit</button>
+  </form>
+
+
+  
+
+</div>
+  <!-- </select> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  
+
+<script>
+
+ var the_json = JSON.parse('{{qs_json|escapejs}}');
+
+
+</script>
+
+
+
+
+
+    <script>
+  
+  var sub = document.getElementById("geolocation"); 
+  console.log(sub)
+  
+  document.getElementById('#geolocation').onclick = function() {
+
+console.log('aaaaaaaaaaaaa')
+ 
+}
+
+window.onload = function()
+{
+draw()
+var str = ".innerHTMLで変数渡し！";
+      document.getElementById('result').innerHTML = str ;
+}
+
+      
+function draw(){
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var background = new Image();
+background.src = "/media/a.png";
+//画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
+var canvas_width = 550;
+ctx.fillStyle = "red";
+ctx.font = "20px 'ＭＳ ゴシック'";
+//canvas_widthを height / width倍する.
+
+ctx.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+ctx.fillText("⚪", 1/0.02*canvas_width/background.width, 2/0.02*canvas_width / background.width);
+
+var canvas1 = document.getElementById("canvas1");
+var ctx1 = canvas1.getContext("2d");
+var background = new Image();
+background.src = "/media/a.png";
+//画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
+var canvas1_width = 550;
+var canvas1_height = 350;
+ctx1.fillStyle = "red";
+ctx1.font = "20px 'ＭＳ ゴシック'";
+//canvas_widthを height / width倍する.
+
+//ctx1.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+ctx1.drawImage(background,10,10,canvas1_width, canvas1_height);
+ctx1.fillText("⚪", 5/0.02*canvas1_width/background.width, 2/0.02*canvas1_height/background.height);
+
+
+}
+
+document.getElementById('btn').onclick = function() {
+  // すでにグラフ（インスタンス）が生成されている場合は、グラフを破棄する
+console.log()
+  draw(); // グラフを再描画
+}
+    </script>
+
+
+
+<script>
+
+var something = (function() {
+    var executed = false;
+    
+    return function() {
+        if (!executed) {
+            executed = true;
+            // do something
+            var a = document.getElementById("p2")
+            p2.style.visibility ="hidden";
+    
+        }
+    };
+})();
+
+something();
+
+
+
+$(function(){
+  $('.dropdown-menu .dropdown-item').click(function(){
+      var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
+      visibleItem.text($(this).attr('value'));
+      var v = $(this).val();
+      sessionStorage.setItem('kye',v);
+
+      console.log(v)
+   
+      if (v == '項目1') {
+      $('#p1').show();
+      $('#p2').hide();
+
+      }else if(v == '項目2'){
+        $('#p1').hide();
+      $('#p2').show();
+      }
+
+  });
+});
+
+$(function(){
+  $('#abc').click(function(){
+      var visibleItem = $('#dropdownMenuButton', $(this).closest('#bbb'));
+      visibleItem.text($(this).attr('value'));
+      var vv = $(this).val();
+      sessionStorage.setItem('kye',vv);
+
+      console.log(vv)
+
+
+  });
+});
+
+</script>
+
+<script>
+ $(function){
+  var d = sessionStorage.getItem('kye');
+  $('#result').text(d)
+  
+      $('#p1').show();
+      $('#p2').hide();
+      console.log('3')
+ }
+
+</script>
+
+<img src="/media/a.png" >
+
+
+<script>
+  $(function () {
+  var canvas = $('canvas1').get(0)
+  var canvasContext = canvas.getContext('2d')
+
+  var ratio = 1
+  var vpx = 0
+  var vpy = 0
+  var vpw = window.innerWidth
+  var vph = window.innerHeight
+
+  var orig_width = 4000
+  var orig_height = 4000
+
+  var width = 4000
+  var height = 4000
+
+  $(window).on('resize', function () {
+    $(canvas).prop({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    })
+  }).trigger('resize')
+
+  $(canvas).on('wheel', function (ev) {
+    ev.preventDefault() // for stackoverflow
+
+    var step
+
+    if (ev.originalEvent.wheelDelta) {
+      step = (ev.originalEvent.wheelDelta > 0) ? 0.05 : -0.05
+    }
+
+    if (ev.originalEvent.deltaY) {
+      step = (ev.originalEvent.deltaY > 0) ? 0.05 : -0.05
+    }
+
+    if (!step) return false // yea..
+
+    var new_ratio = ratio + step
+    var min_ratio = Math.max(vpw / orig_width, vph / orig_height)
+    var max_ratio = 3.0
+
+    if (new_ratio < min_ratio) {
+      new_ratio = min_ratio
+    }
+
+    if (new_ratio > max_ratio) {
+      new_ratio = max_ratio
+    }
+
+    // zoom center point
+    var targetX = ev.originalEvent.clientX || (vpw / 2)
+    var targetY = ev.originalEvent.clientY || (vph / 2)
+
+    // percentages from side
+    var pX = ((vpx * -1) + targetX) * 100 / width
+    var pY = ((vpy * -1) + targetY) * 100 / height
+
+    // update ratio and dimentsions
+    ratio = new_ratio
+    width = orig_width * new_ratio
+    height = orig_height * new_ratio
+
+    // translate view back to center point
+    var x = ((width * pX / 100) - targetX)
+    var y = ((height * pY / 100) - targetY)
+
+    // don't let viewport go over edges
+    if (x < 0) {
+      x = 0
+    }
+
+    if (x + vpw > width) {
+      x = width - vpw
+    }
+
+    if (y < 0) {
+      y = 0
+    }
+
+    if (y + vph > height) {
+      y = height - vph
+    }
+
+    vpx = x * -1
+    vpy = y * -1
+  })
+
+  var is_down, is_drag, last_drag
+
+  $(canvas).on('mousedown', function (ev) {
+    is_down = true
+    is_drag = false
+    last_drag = { x: ev.clientX, y: ev.clientY }
+  })
+
+  $(canvas).on('mousemove', function (ev) {
+    is_drag = true
+
+    if (is_down) {
+      var x = vpx - (last_drag.x - ev.clientX)
+      var y = vpy - (last_drag.y - ev.clientY)
+
+      if (x <= 0 && vpw < x + width) {
+        vpx = x
+      }
+
+      if (y <= 0 && vph < y + height) {
+        vpy = y
+      }
+
+      last_drag = { x: ev.clientX, y: ev.clientY }
+    }
+  })
+
+  $(canvas).on('mouseup', function (ev) {
+    is_down = false
+    last_drag = null
+
+    var was_click = !is_drag
+    is_drag = false
+
+    if (was_click) {
+
+    }
+  })
+
+  $(canvas).css({ position: 'absolute', top: 0, left: 0 }).appendTo(document.body)
+
+  function animate () {
+    window.requestAnimationFrame(animate)
+
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height)
+
+    canvasContext.lineWidth = 1
+    canvasContext.strokeStyle = '#ccc'
+
+    var step = 100 * ratio
+
+    for (var x = vpx; x < width + vpx; x += step) {
+      canvasContext.beginPath()
+      canvasContext.moveTo(x, vpy)
+      canvasContext.lineTo(x, vpy + height)
+      canvasContext.stroke()
+    }
+    for (var y = vpy; y < height + vpy; y += step) {
+      canvasContext.beginPath()
+      canvasContext.moveTo(vpx, y)
+      canvasContext.lineTo(vpx + width, y)
+      canvasContext.stroke()
+    }
+
+    canvasContext.strokeRect(vpx, vpy, width, height)
+
+    canvasContext.beginPath()
+    canvasContext.moveTo(vpx, vpy)
+    canvasContext.lineTo(vpx + width, vpy + height)
+    canvasContext.stroke()
+
+    canvasContext.beginPath()
+    canvasContext.moveTo(vpx + width, vpy)
+    canvasContext.lineTo(vpx, vpy + height)
+    canvasContext.stroke()
+
+    canvasContext.restore()
+  }
+
+  animate()
+})
+</script>
+
+<script>
+  $("form").submit( function(event) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+          url: form.prop("action"),
+          method: form.prop("method"),
+          data: form.serialize(),
+          timeout: 10000,
+          dataType: "text",
+        })
+        .done( function(data) {
+          alert("done");
+          $("#id_div_ajax_response").text(data);
+        })
+      });  
+  
+</script>
+
+
 {% endblock content %}
