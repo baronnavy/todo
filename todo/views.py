@@ -143,6 +143,9 @@ class TodoList2(ListView):
 
         context['x'] = TodoModel.objects.order_by('x').distinct().values_list('title','x', flat=False)
         context['title'] = TodoModel.objects.order_by('title').distinct().values_list('title','x', flat=False)
+        items = TodoModel.objects.all().values()
+        json_str = json.dumps(list(items), ensure_ascii=False, indent=2, cls=CustomJSONEncoder) 
+        context['qs_json'] = json_str
         return context
 
     def post(self, request, *args, **kwargs):
@@ -157,12 +160,16 @@ class TodoList2(ListView):
         else:
             item = TodoModel.objects.all
 
+        items = TodoModel.objects.all().values()
+        json_str = json.dumps(list(items), ensure_ascii=False, indent=2, cls=CustomJSONEncoder) 
+        
         context = {
             'x': x,
             'title':title,
             'label':label,
             'article':article,
-            'model_list':item
+            'model_list':item,
+            'qs_json' : json_str
 
         }
         return render(request, 'list2.html', context)
