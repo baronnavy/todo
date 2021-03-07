@@ -4,8 +4,12 @@
 {% block customcss %}
 
 {% endblock customcss %}
+<<<<<<< HEAD
 1
 2
+=======
+9
+>>>>>>> 37afc20fb8faa7f391b1c71fbe5f72ba7217164a
 
 {% block header %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -23,22 +27,23 @@
   
   <div class="list-group-flush m-0 p-0  col-2">
     <h1 class="m-0 p-0">物品管理システム</h1>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品検索</a>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5"">物品一覧</a>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5"">物品一覧</a>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5"">タグ登録</a>
+    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action active pl-5">物品検索</a>
+    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品一覧</a>
+    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品一覧</a>
+    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">タグ登録</a>
   </div>
 </div>
 
-<div class="main-container-header col-10.5 offset-2">
-  <nav class="navbar m-0 py-1">
+<div >
+  <nav class="navbar fixed-top col-10 offset-2">
     <button class="btn ml-auto btn-sm" type="submit">ログアウト</button>
   </nav>
 </div>
 
+
 <div class="col-10.5 offset-2">
-  <div class="card m-2">
-    <div class="card-header p-2">
+  <div class="card mt-5 ">
+    <div class="card-header bg-info p-2">
       フィルタリング
     </div>
     <div class="card-body p-1">
@@ -68,13 +73,15 @@
     </div>
   </div>
 
+  <!-- {{ qs_json }} -->
 
-  <div class="card ml-2 mt-3" style="width: 40rem;">
-    <div class="card-header m-0">
+  <div class="row">
+  <div class="card ml-2 mt-3 col-7 p-0">
+    <div class="card-header bg-secondary m-0">
       データ
     </div>
-    <div class="card-body">
-      <table class="table table-striped table-hover table-sm ">
+    <div class="card-body bg-light ">
+      <table class="table table-striped table-hover table-active table-sm ">
         <tr>
           <th>物品</th>
           <th>x</th>
@@ -90,10 +97,36 @@
       </table>
     </div>
   </div>
+    <div class="card ml-2 mt-3 col-4 p-0">
+      <div class="card-header bg-secondary m-0">
+        詳細
+      </div>
+      <div class="card-body bg-light ">
+    
+        <div class="popup">
+          <!-- <div class="col-3"> -->
+          あいうえお
+          <button id="close1">閉じる</button>
+        </div>
+          {% for object in model_list %}
+          
+          {% endfor %}
+   
+      </div>
+
+  </div>
+</div>
 
 </div>
 
+<script>
+$(function(){
+  $('tr[data-href]', 'table.table-clickable').on('click', function(){
+    location.href = $(this).data('href');
+  });
+});
 
+</script>
 
 
 <!-- <div class="header"></div>
@@ -136,6 +169,7 @@ body {
   /* background-color: rgb(238, 235, 235); */
 }
 .list-group-flush {
+z-index: 500;
 position: fixed;
 top: 0;
 bottom: 0;
@@ -152,30 +186,34 @@ border-color: #dddddd;
 border: 0.0rem;
 font-size: 1.2rem;
 }
+.list-group-flush .list-group-item:active{
+background-color: #00aaff !important;
+border-color: #dddddd;
+color:black;
+border: 0.0rem;
+font-size: 1.2rem;
+}
 .list-group-flush .list-group-item:hover{
 background-color: #d0d0d0;
 color: #0066B4;
 }
-.list-group-flush .list-group-item:active{
-background-color: #0066B4;
-color: #5a6c7a;
-}
-
-.list-group-item .list-group-item:active{
-  background-color: #00589b;
-  color:black
+.list-group-item.active {
+z-index: 2;
+color: rgb(22, 27, 36);
+background-color: #10418b;
+border-color: #007bff;
 }
 #global-nav h1{
-font-size: large;
+font-size: 1.5rem;
 font-weight: bold;
 text-align: center;
 white-space:nowrap;
 line-height: 3.5rem;
 height: 3.5rem;
 background-color: #666666;
+color: white;
 }
 .navbar{
-  position: relative;
 height: 3.5rem;
 background-color: #666666;
 
@@ -332,16 +370,10 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
 
 
- <div class="popup">
-  <div class="content">
-      <img src="/media/a.png"> 
-      <button id="close1">閉じる</button>
-  </div>
+
 
 
 <style>
-
-
 
 .btn{
 background-color:ghostwhite;
@@ -354,7 +386,7 @@ background-color:ghostwhite;
 </style>
 
 
-<style>
+<!-- <style>
 .popup {
     display: none;
     height: 100vh;
@@ -378,8 +410,39 @@ background-color:ghostwhite;
     align-items: center;
 }
 
-</style>
+</style> -->
 
+
+<script>
+$('.popup').hide();
+
+var the_json = JSON.parse('{{qs_json|escapejs}}');
+
+$('.chara').on('click', function(){
+            var nameVal = $(this).children('td')[0].innerText;
+            // alert(' name: '+ nameVal);
+            $('.popup').show();
+            for(let i in the_json) {
+            //  console.log(the_json[i]);
+             if(the_json[i].title==nameVal){
+              $('.popup').html('<p>物品名:'+the_json[i].title+'</p>'+
+                '<p>id:'+the_json[i].id+'</p>'+
+               '<p>最終検知時刻:'+the_json[i].duedate+'</p>'+
+               '<p>予定:A社 7F</p>'+
+               '<p>実績:A社 6F</p>'
+               );
+             }
+            // $('.popup').text(the_json[1].id);
+            }
+            
+
+            });
+  
+$('#close1').on('click',function(){
+    $('.popup').hide();
+});
+
+</script>
 
 <script>
 {% autoescape off %}
@@ -413,15 +476,7 @@ $('.parent').change(function() {
   });
 });
 
-$('.chara').on('click', function(){
-            var nameVal = $(this).children('td')[0].innerText;
-            // alert(' name: '+ nameVal);
-            $('.popup').addClass('show').fadeIn();
-            });
-  
-$('#close1').on('click',function(){
-    $('.popup').fadeOut();
-});
+
 </script>
 
 
