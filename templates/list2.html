@@ -11,6 +11,7 @@
 <script type="text/javascript" src="ajax.js?ver=1.0"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="{% static 'canvas.js' %}"></script>
 {% endblock %}
 
 
@@ -28,15 +29,16 @@
   </div>
 </div>
 
-<div >
-  <nav class="navbar fixed-top col-10 offset-2">
-    <button class="btn ml-auto btn-sm" type="submit">ログアウト</button>
-  </nav>
-</div>
+<nav class="navbar fixed-top navbar-light">
+  <a class="navbar-brand">Hidden brand</a>
+  <div class="d-flex justify-content-end">
+    <button class="btn kanri">管理サイト</button>
+    <button class="btn" type="submit">ログアウト</button>
+  </div>
+</nav>
 
-
-<div class="col-10.5 offset-2">
-  <div class="card mt-5 ">
+<div class="col-10 offset-2 aaaaa">
+  <div class="card">
     <div class="card-header bg-info p-2">
       フィルタリング
     </div>
@@ -65,9 +67,6 @@
       </div>
     </form>
     </div>
-  </div>
-
-  <!-- {{ qs_json }} -->
 
   <div class="row">
   <div class="card ml-2 mt-3 col-7 p-0">
@@ -111,16 +110,10 @@
   </div>
 </div>
 
-</div>
 
-<script>
-$(function(){
-  $('tr[data-href]', 'table.table-clickable').on('click', function(){
-    location.href = $(this).data('href');
-  });
-});
 
-</script>
+
+
 
 
 <!-- <div class="header"></div>
@@ -212,6 +205,13 @@ height: 3.5rem;
 background-color: #666666;
 
 }
+
+.aaaaa{
+margin-top: 4rem;
+
+}
+
+
 
 </style>
 
@@ -364,22 +364,6 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
 
 
-
-
-
-<style>
-
-.btn{
-background-color:ghostwhite;
-
-}
-.btn:hover{
-  background-color:grey;
-
-}
-</style>
-
-
 <!-- <style>
 .popup {
     display: none;
@@ -408,7 +392,7 @@ background-color:ghostwhite;
 
 
 <script>
-$('.popup').hide();
+
 
 var the_json = JSON.parse('{{qs_json|escapejs}}');
 
@@ -423,18 +407,57 @@ $('.chara').on('click', function(){
                 '<p>id:'+the_json[i].id+'</p>'+
                '<p>最終検知時刻:'+the_json[i].duedate+'</p>'+
                '<p>予定:A社 7F</p>'+
-               '<p>実績:A社 6F</p>'
+               '<p>実績:A社 6F</p>'+
+               '<canvas id="canvas" width="600" height="500"  style="background-color:yellow;"></canvas>'
                );
              }
             // $('.popup').text(the_json[1].id);
             }
-            
+            draw()
 
             });
   
 $('#close1').on('click',function(){
     $('.popup').hide();
 });
+
+
+window.onload = function()
+{
+draw()
+}
+
+function draw(){
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var background = new Image();
+background.src = "/media/a.png";
+//画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
+var canvas_width = 550;
+ctx.fillStyle = "red";
+ctx.font = "20px 'ＭＳ ゴシック'";
+//canvas_widthを height / width倍する.
+
+ctx.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+ctx.fillText("⚪", 1/0.02*canvas_width/background.width, 2/0.02*canvas_width / background.width);
+
+var canvas1 = document.getElementById("canvas1");
+var ctx1 = canvas1.getContext("2d");
+var background = new Image();
+background.src = "/media/a.png";
+//画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
+var canvas1_width = 550;
+var canvas1_height = 350;
+ctx1.fillStyle = "red";
+ctx1.font = "20px 'ＭＳ ゴシック'";
+//canvas_widthを height / width倍する.
+
+//ctx1.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+ctx1.drawImage(background,10,10,canvas1_width, canvas1_height);
+ctx1.fillText("⚪", 5/0.02*canvas1_width/background.width, 2/0.02*canvas1_height/background.height);
+
+
+}
 
 </script>
 

@@ -5,9 +5,12 @@ body {
 
 
 .navbar{
-    font-size: 3rem !important;
+font-size: 3rem !important;
+position:fixed;
+}
 
-
+#global{
+position:absolute;
 }
 
 .text-secondary:hover {
