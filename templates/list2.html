@@ -18,16 +18,7 @@
 
 {% block content %}
 
-<div id="global-nav">
-  
-  <div class="list-group-flush m-0 p-0  col-2">
-    <h1 class="m-0 p-0">物品管理システム</h1>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action active pl-5">物品検索</a>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品一覧</a>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品一覧</a>
-    <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">タグ登録</a>
-  </div>
-</div>
+
 
 <nav class="navbar fixed-top navbar-light">
   <a class="navbar-brand">Hidden brand</a>
@@ -37,79 +28,96 @@
   </div>
 </nav>
 
-<div class="col-10 offset-2 aaaaa">
-  <div class="card">
-    <div class="card-header bg-info p-2">
-      フィルタリング
-    </div>
-    <div class="card-body p-1">
-      <form action="" method="post" class="form-row">{% csrf_token %}
-        <div class="form-group col-3 offset-1">
-         <label for="label1">対象</label>
-         <select class="form-control parent"  name="label" id="label1">
-         <option value="">選択して下さい</option>
-         {% for k,v in x %}
-         <option value="{{v}}">{{v}}</option>
-         {% endfor %}
-         </select>
-        </div>
-        <div class="form-group col-3">
-          <label for="label2">物品</label>
-          <select class="form-control children"  name="article" id="label2">
-          <option value="">選択して下さい</option>
-          {% for item1,item2 in title %}
-          <option value="{{item1}}" data-val="{{item2}}">{{item1}}</option>
-          {% endfor %}
-          </select>
-         </div>
-         <div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 30px;">検索</button>
+<div class='container-fluid'>
+  <div class='row'>
+    <div>
+      <div class="list-group-flush col-md-2">
+        <a class="list-group-item list-group-item-action active pl-5">物品検索</a>
+        <a href="{% url 'list2' %}" class="list-group-item list-group-item-action active pl-5">物品検索</a>
+        <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品一覧</a>
+        <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">物品一覧</a>
+        <a href="{% url 'list2' %}" class="list-group-item list-group-item-action pl-5">タグ登録</a>
       </div>
-    </form>
     </div>
-
-  <div class="row">
-  <div class="card ml-2 mt-3 col-7 p-0">
-    <div class="card-header bg-secondary m-0">
-      データ
-    </div>
-    <div class="card-body bg-light ">
-      <table class="table table-striped table-hover table-active table-sm ">
-        <tr>
-          <th>物品</th>
-          <th>x</th>
-          <th>y</th>
-        </tr>
-        {% for object in model_list %}
-        <tr class='chara'>
-          <td>{{ object.title }}</td>
-          <td>{{ object.x }}</td>
-          <td>{{ object.y }}</td>
-        </tr>
-        {% endfor %}
-      </table>
+    <div class="col-md-10  aaaaa">
+      <div class="card">
+        <div class="card-header bg-info">
+          フィルタリング
+        </div>
+        <div class="card-body p-1">
+          <form action="" method="post" class="form-row">{% csrf_token %}
+            <div class="form-group col-3 ">
+              <label for="label1">対象</label>
+              <select class="form-control parent" name="label" id="label1">
+                <option value="">選択して下さい</option>
+                {% for k,v in x %}
+                <option value="{{v}}">{{v}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group col-3">
+              <label for="label2">物品</label>
+              <select class="form-control children" name="article" id="label2">
+                <option value="">選択して下さい</option>
+                {% for item1,item2 in title %}
+                <option value="{{item1}}" data-val="{{item2}}">{{item1}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary" style="margin-top: 30px;">検索</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-    <div class="card ml-2 mt-3 col-4 p-0">
+
+  <div class="row">
+    <div class="card col-6 offset-2">
+      <div class="card-header bg-secondary ">
+        データ
+      </div>
+      <div class="card-body bg-light ">
+        <table class="table table-striped table-hover table-active table-sm ">
+          <tr>
+            <th>物品</th>
+            <th>x</th>
+            <th>y</th>
+          </tr>
+          {% for object in model_list %}
+          <tr class='chara'>
+            <td>{{ object.title }}</td>
+            <td>{{ object.x }}</td>
+            <td>{{ object.y }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class="card col-4">
       <div class="card-header bg-secondary m-0">
         詳細
       </div>
       <div class="card-body bg-light ">
-    
+
         <div class="popup">
           <!-- <div class="col-3"> -->
           あいうえお
           <button id="close1">閉じる</button>
         </div>
-          {% for object in model_list %}
-          
-          {% endfor %}
-   
+        {% for object in model_list %}
+
+        {% endfor %}
+
       </div>
 
+    </div>
   </div>
 </div>
 
+</div>
+</div>
 
 
 
@@ -138,81 +146,89 @@
   </div> -->
 
 <style>
-tbody {
-      display: block;
-    }
-    tbody {
-      overflow-x: hidden;
-      overflow-y: scroll;
-      height: 500px;
-    }
-    th, td {
-      width: 200px; min-width: 200px;
-    }
+  tbody {
+    display: block;
+  }
+
+  tbody {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 500px;
+  }
+
+  th,
+  td {
+    width: 200px;
+    min-width: 200px;
+  }
 </style>
 
 <style>
-body {
-  /* background-color: rgb(238, 235, 235); */
-}
-.list-group-flush {
-z-index: 500;
-position: fixed;
-top: 0;
-bottom: 0;
-left: 0;
-background-color: #dddddd;
-border-color: #dddddd;
-border: 0.0rem;
-font-size: large;
-box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
-.list-group-flush .list-group-item{
-background-color: #dddddd;
-border-color: #dddddd;
-border: 0.0rem;
-font-size: 1.2rem;
-}
-.list-group-flush .list-group-item:active{
-background-color: #00aaff !important;
-border-color: #dddddd;
-color:black;
-border: 0.0rem;
-font-size: 1.2rem;
-}
-.list-group-flush .list-group-item:hover{
-background-color: #d0d0d0;
-color: #0066B4;
-}
-.list-group-item.active {
-z-index: 2;
-color: rgb(22, 27, 36);
-background-color: #10418b;
-border-color: #007bff;
-}
-#global-nav h1{
-font-size: 1.5rem;
-font-weight: bold;
-text-align: center;
-white-space:nowrap;
-line-height: 3.5rem;
-height: 3.5rem;
-background-color: #666666;
-color: white;
-}
-.navbar{
-height: 3.5rem;
-background-color: #666666;
+  body {
+    /* background-color: rgb(238, 235, 235); */
+  }
 
-}
+  .list-group-flush {
+    z-index: 500;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #dddddd;
+    border-color: #dddddd;
+    border: 0.0rem;
+    font-size: large;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  }
 
-.aaaaa{
-margin-top: 4rem;
+  .list-group-flush .list-group-item {
+    background-color: #dddddd;
+    border-color: #dddddd;
+    border: 0.0rem;
+    font-size: 1.2rem;
+  }
 
-}
+  .list-group-flush .list-group-item:active {
+    background-color: #00aaff !important;
+    border-color: #dddddd;
+    color: black;
+    border: 0.0rem;
+    font-size: 1.2rem;
+  }
 
+  .list-group-flush .list-group-item:hover {
+    background-color: #d0d0d0;
+    color: #0066B4;
+  }
 
+  .list-group-item.active {
+    z-index: 2;
+    color: rgb(22, 27, 36);
+    background-color: #10418b;
+    border-color: #007bff;
+  }
 
+  #global-nav h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 3.5rem;
+    height: 3.5rem;
+    background-color: #666666;
+    color: white;
+  }
+
+  .navbar {
+    height: 3.5rem;
+    background-color: #666666;
+
+  }
+
+  .aaaaa {
+    margin-top: 4rem;
+
+  }
 </style>
 
 <!-- <style>
@@ -394,110 +410,145 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 <script>
 
 
-var the_json = JSON.parse('{{qs_json|escapejs}}');
+  var the_json = JSON.parse('{{qs_json|escapejs}}');
 
-$('.chara').on('click', function(){
-            var nameVal = $(this).children('td')[0].innerText;
-            // alert(' name: '+ nameVal);
-            $('.popup').show();
-            for(let i in the_json) {
-            //  console.log(the_json[i]);
-             if(the_json[i].title==nameVal){
-              $('.popup').html('<p>物品名:'+the_json[i].title+'</p>'+
-                '<p>id:'+the_json[i].id+'</p>'+
-               '<p>最終検知時刻:'+the_json[i].duedate+'</p>'+
-               '<p>予定:A社 7F</p>'+
-               '<p>実績:A社 6F</p>'+
-               '<canvas id="canvas" width="600" height="500"  style="background-color:yellow;"></canvas>'
-               );
-             }
-            // $('.popup').text(the_json[1].id);
-            }
-            draw()
+  $('.chara').on('click', function () {
+    var nameVal = $(this).children('td')[0].innerText;
+    // alert(' name: '+ nameVal);
+    $('.popup').show();
+    for (let i in the_json) {
+      //  console.log(the_json[i]);
+      if (the_json[i].title == nameVal) {
+        $('.popup').html('<p>物品名:' + the_json[i].title + '</p>' +
+          '<p>id:' + the_json[i].id + '</p>' +
+          '<p>最終検知時刻:' + the_json[i].duedate + '</p>' +
+          '<p>予定:A社 7F</p>' +
+          '<p>実績:A社 6F</p>' +
+          '<canvas id="canvas" width="600" height="500"  style="background-color:yellow;"></canvas>'
+        );
+        var x = the_json[i].x * 10
+      }
+    }
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var background = new Image();
+    var icon = new Image();
+    icon.src = "/media/b.png";
+    if (nameVal == 'bb') {
+      background.src = "/media/a.png";
+    } else if (nameVal == 'dd') {
+      background.src = "/media/a.png";
+    } else {
 
-            });
-  
-$('#close1').on('click',function(){
+    }
+
+    var canvas_width = 550;
+    // ctx.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+    ctx.drawImage(background, 10, 10, 300, 200);
+
+    ctx.font = '170pt Arial';
+    ctx.fillStyle = "rgba(255,45,45,0.5)";
+    ctx.beginPath();
+    ctx.arc(x, x, 70, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
+    ctx.fill();
+
+    icon.onload = function () {
+      ctx.drawImage(icon, x - 50, x - 50, 100, 100);
+    }
+
+  });
+
+
+
+
+
+  $('#close1').on('click', function () {
     $('.popup').hide();
-});
+  });
 
 
-window.onload = function()
-{
-draw()
-}
 
-function draw(){
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var background = new Image();
-background.src = "/media/a.png";
-//画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
-var canvas_width = 550;
-ctx.fillStyle = "red";
-ctx.font = "20px 'ＭＳ ゴシック'";
-//canvas_widthを height / width倍する.
-
-ctx.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
-ctx.fillText("⚪", 1/0.02*canvas_width/background.width, 2/0.02*canvas_width / background.width);
-
-var canvas1 = document.getElementById("canvas1");
-var ctx1 = canvas1.getContext("2d");
-var background = new Image();
-background.src = "/media/a.png";
-//画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
-var canvas1_width = 550;
-var canvas1_height = 350;
-ctx1.fillStyle = "red";
-ctx1.font = "20px 'ＭＳ ゴシック'";
-//canvas_widthを height / width倍する.
-
-//ctx1.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
-ctx1.drawImage(background,10,10,canvas1_width, canvas1_height);
-ctx1.fillText("⚪", 5/0.02*canvas1_width/background.width, 2/0.02*canvas1_height/background.height);
+  // window.onload = function()
+  // {
 
 
-}
+  // }
+
+  // function draw(){
+  // var canvas = document.getElementById("canvas");
+  // var ctx = canvas.getContext("2d");
+  // var background = new Image();
+  // background.src = "/media/a.png";
+  // //画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
+  // var canvas_width = 550;
+  // ctx.fillStyle = "red";
+  // ctx.font = "20px 'ＭＳ ゴシック'";
+  // //canvas_widthを height / width倍する.
+
+  // ctx.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+  // ctx.fillText("⚪", 1/0.02*canvas_width/background.width, 2/0.02*canvas_width / background.width);
+
+  // var canvas1 = document.getElementById("canvas1");
+  // var ctx1 = canvas1.getContext("2d");
+  // var background = new Image();
+  // background.src = "/media/a.png";
+  // //画像をCanvasのサイズに合わせて等倍して画像をcanvasに貼り付ける.
+  // var canvas1_width = 550;
+  // var canvas1_height = 350;
+  // ctx1.fillStyle = "red";
+  // ctx1.font = "20px 'ＭＳ ゴシック'";
+  //canvas_widthを height / width倍する.
+
+  // //ctx1.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
+  // ctx1.drawImage(background,10,10,canvas1_width, canvas1_height);
+  // ctx1.fillText("⚪", 5/0.02*canvas1_width/background.width, 2/0.02*canvas1_height/background.height);
+
+
+  // }
+
+  function cls() {
+    //キャンバスの(0,0)～(200,200)の範囲をクリアする
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
 </script>
 
 <script>
-{% autoescape off %}
-var label = "{{ label }}"
-var article = "{{ article }}"
-{% endautoescape %}
-$('[name=label]').val(label);
-$('[name=article]').val(article);
-// $('[name=Label]').change(function() {
-//     var val1 = $('[name=label]').val();
-//     sessionStorage.setItem('kye1',val1);
-// });
+  {% autoescape off %}
+  var label = "{{ label }}"
+  var article = "{{ article }}"
+  {% endautoescape %}
+  $('[name=label]').val(label);
+  $('[name=article]').val(article);
+  // $('[name=Label]').change(function() {
+  //     var val1 = $('[name=label]').val();
+  //     sessionStorage.setItem('kye1',val1);
+  // });
 
-// $('[name=article]').change(function() {
-//     var val2 = $('[name=article]').val();
-//     sessionStorage.setItem('kye2',val2);
-// });
-var $children = $('.children');
-var original = $children.html();
+  // $('[name=article]').change(function() {
+  //     var val2 = $('[name=article]').val();
+  //     sessionStorage.setItem('kye2',val2);
+  // });
+  var $children = $('.children');
+  var original = $children.html();
 
-$('.parent').change(function() {
+  $('.parent').change(function () {
 
-  var val1 = $(this).val();
+    var val1 = $(this).val();
 
-  $children.html(original).find('option').each(function() {
-    var val2 = $(this).data('val');
-    
-    if (val1 != val2 && val1 != "")  {
-      $(this).not(':first-child').remove();
-    }
+    $children.html(original).find('option').each(function () {
+      var val2 = $(this).data('val');
+
+      if (val1 != val2 && val1 != "") {
+        $(this).not(':first-child').remove();
+      }
+    });
   });
-});
 
-
+  console.log("aaaaaaaaaaaaa")
 </script>
 
 
 
 
 {% endblock content %}
-
