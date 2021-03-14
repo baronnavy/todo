@@ -10,12 +10,18 @@ class TodoModel(models.Model):
     x = models.CharField(max_length=100,blank=True)
     y = models.CharField(max_length=100,blank=True)
     radius = models.CharField(max_length=100,blank=True)
-    memo = models.TextField()
+    memo = models.TextField(blank=True,null=True)
     priority = models.CharField(
         max_length = 50,
-        choices = PRIORITY
+        choices = PRIORITY,
+        blank=True,null=True
     )
-    duedate = models.DateTimeField()
+    duedate = models.DateTimeField(blank=True,null=True)
+    article = models.CharField( max_length=100,blank=True,null=True)
+    start = models.DateTimeField( blank=True,null=True)
+    end = models.DateTimeField( blank=True,null=True)
+    company = models.CharField( max_length=100,blank=True,null=True)
+    floor = models.CharField( max_length=100,blank=True,null=True)
    
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk':self.pk})
@@ -29,3 +35,23 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Reservation(models.Model):
+    article = models.CharField( max_length=100,blank=True,null=True)
+    start = models.DateTimeField( blank=True,null=True)
+    end = models.DateTimeField( blank=True,null=True)
+    company = models.CharField( max_length=100,blank=True,null=True)
+    floor = models.CharField( max_length=100,blank=True,null=True)
+
+    def __str__(self):
+        return self.article
+
+class Reserve(models.Model):
+    article = models.CharField( max_length=100,blank=True,null=True)
+    start = models.DateTimeField( blank=True,null=True)
+    end = models.DateTimeField( blank=True,null=True)
+    company = models.CharField( max_length=100,blank=True,null=True)
+    floor = models.CharField( max_length=100,blank=True,null=True)
+
+    def __str__(self):
+        return self.article

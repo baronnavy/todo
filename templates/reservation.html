@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+
+{% endblock customcss %}
+
+{% block header %}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+{{object_list}}
+
+{% for item in object %}
+    <div class="alert alert-{{ item.priority }}" role="alert">
+        <p>{{ item.article }}　期日：{{ item.end }}</p>
+        <a href="{% url 'reservation_create' item.pk %}" class="btn btn-info" tabindex="-1" role="button"
+            aria-disabled="true">編集</a>
+        <a href="{% url 'delete' item.pk %}" class="btn btn-primary" tabindex="-1" role="button"
+            aria-disabled="true">削除</a>
+        <a href="{% url 'detail' item.pk %}" class="btn btn-success" tabindex="-1" role="button"
+            aria-disabled="true">詳細</a>
+    </div>
+    {% endfor %}
+
+ <table class="table table-bordered text-center" style="table-layout: fixed;width: 100%" border="1">
+    <tr>
+        <td><a href="">前週</a></td>
+        {% for day in days %}
+                <th colspan="1" >{{ day | date:"d(D)" }}</th>
+        {% endfor %}
+        <td><a href="">次週</a></td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        {% for day in days %}
+        <th >{{ day | date:"A" }}</th>
+        {% endfor %}
+        <td></td>
+    </tr>
+    {% for name, schedules in calendar.items %}
+    <tr style="font-size:12px">
+        <td>
+            {{ name}}
+        </td>
+        {% for dt, book in schedules.items %}
+            <td>
+ 
+                    <a href="{% url 'reservation_create' dt.year %}">○</a> 
+            </td>
+            <!-- url 'reservation_create' item.pk  -->
+            <!-- item.start.year item.start.month item.start.day item.start.hour -->
+            {% endfor %}
+        <td>
+            {{ name }}
+        </td>
+    </tr>
+{% endfor %}
+
+
+</table>
+
+{{calendar}}
+
+
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import TodoModel, Post
+from .models import TodoModel, Post,Reservation,Reserve
 from django.urls import reverse_lazy
 
 import io
@@ -17,16 +17,16 @@ from django.http import JsonResponse
 # Create your views here.
 import json 
 from django.core.serializers.json import DjangoJSONEncoder
-from datetime import datetime
+import datetime 
 
-from .form import FloorForm
+from .form import FloorForm,ReservationForm
 from django.views import generic
 
 
 class CustomJSONEncoder(DjangoJSONEncoder):
 
     def default(self, obj):
-        if isinstance(obj, datetime):
+        if isinstance(obj, datetime.datetime):
             return obj.strftime("%m月%d日 %H:%M:%S")
         return super().default(obj)
 
@@ -131,7 +131,8 @@ class TodoList(ListView):
         """
         items = TodoModel.objects.all().values()
         json_str = json.dumps(list(items), ensure_ascii=False, indent=2, cls=CustomJSONEncoder) 
-        context['qs_json'] = json_str
+        context['qs_json'] = json_str,
+        context['object']=Reserve.objects.all(),
         return context
 
 class TodoList2(ListView):
@@ -169,10 +170,106 @@ class TodoList2(ListView):
             'label':label,
             'article':article,
             'model_list':item,
-            'qs_json' : json_str
+            'qs_json' : json_str,
+            
 
         }
         return render(request, 'list2.html', context)
+
+class Reservation(ListView):
+    template_name = 'reservation.html'
+    # model = Reservation
+    model = TodoModel
+
+
+    queryset = TodoModel.objects.all()
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        today = datetime.datetime.today()
+        days = [today + datetime.timedelta(hours=hour) for hour in range(0,24*7,12)]
+        start_day = days[0]
+        end_day = days[-1]
+
+        # 9時から17時まで1時間刻み、1週間分の、値がTrueなカレンダーを作る
+        calendar = {}
+        # name_list = [1,2,3]
+        name_list = [1,2,3]
+        # for hour in range(9, 18):
+        for article in name_list:
+            row = {}
+            for day in days:
+                row[day] = True
+            calendar[article] = row
+
+
+        context['start_day'] = start_day
+        context['end_day'] = end_day
+        context['days'] = days
+        context['calendar'] = calendar
+        context['object'] = TodoModel.objects.all()
+
+        return context
+
+class ResevationUpdate(UpdateView):
+    template_name = 'reservation_update.html'
+    model = TodoModel
+    fields = ('article', 'start', 'end', 'company','floor')
+    # # form_class = ReservationForm
+    # success_url = reverse_lazy('reservation')   
+    # model = TodoModel
+    # fields = ('title', 'memo', 'priority', 'duedate')
+    success_url = reverse_lazy('reservation')
+    # def form_valid(self, form):
+    #     article = self.kwargs.get('pk')
+    #     year = self.kwargs.get('year')
+    #     month = self.kwargs.get('month')
+    #     day = self.kwargs.get('day')
+    #     hour = self.kwargs.get('hour')
+    #     start = datetime.datetime(year=year, month=month, day=day, hour=hour)
+    #     end = datetime.datetime(year=year, month=month, day=day, hour=hour + 1)
+    #     # if Schedule.objects.filter(staff=staff, start=start).exists():
+    #     #     messages.error(self.request, 'すみません、入れ違いで予約がありました。別の日時はどうですか。')
+    #     # else:
+    #     #     schedule = form.save(commit=False)
+    #     #     schedule.staff = staff
+    #     #     schedule.start = start
+    #     #     schedule.end = end
+    #     #     schedule.save()
+    #     return redirect('reservation',pk=article.pk)
+
+class ResevationCreate(CreateView):
+    template_name = 'reservation_update.html'
+    model = TodoModel
+    fields = ('article', 'start', 'end', 'company','floor')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['staff'] = get_object_or_404(Staff, pk=self.kwargs['pk'])
+        return context
+
+    # success_url = reverse_lazy('reservation')
+    # def form_valid(self, form):
+    #     # article = self.kwargs.get('pk')
+    #     year = self.kwargs.get('year')
+    #     month = self.kwargs.get('month')
+    #     day = self.kwargs.get('day')
+    #     hour = self.kwargs.get('hour')
+    #     start = datetime.datetime(year=year, month=month, day=day, hour=hour)
+    #     end = datetime.datetime(year=year, month=month, day=day, hour=hour + 1)
+    #     # if Schedule.objects.filter(staff=staff, start=start).exists():
+    #     #     messages.error(self.request, 'すみません、入れ違いで予約がありました。別の日時はどうですか。')
+    #     # else:
+    #     todomodel = form.save(commit=False)
+    #         # todomodel.staff = staff
+    #     todomodel.start = start
+    #     todomodel.end = end
+    #     todomodel.save()
+    #     # print("end"+end)
+    #     return redirect('reservation', year=year , month=month)
 
 class TodoDetail(DetailView):
     template_name = 'detail.html'
