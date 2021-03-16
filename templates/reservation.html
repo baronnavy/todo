@@ -49,10 +49,22 @@
             {{ name}}
         </td>
         {% for dt, book in schedules.items %}
-            <td>
- 
-                    <a href="{% url 'reservation_create' dt.year %}">○</a> 
+            <td >
+                {% if name == 1 %}
+                <div class="green ">
+                    <a href="{% url 'reservation_create' dt.year %}">○<br>maru</a> 
+                </div>
+                {% elif name == 2 %}
+                <div class="blue ">
+                    <a href="{% url 'reservation_create' dt.year %}">○<br>maru</a> 
+                </div>
+                {% elif name == 3 %}
+                <div class="red ">
+                    <a href="{% url 'reservation_create' dt.year %}">○<br>maru</a> 
+                </div>
+                {% endif %}
             </td>
+            
             <!-- url 'reservation_create' item.pk  -->
             <!-- item.start.year item.start.month item.start.day item.start.hour -->
             {% endfor %}
@@ -62,7 +74,29 @@
     </tr>
 {% endfor %}
 
+<style>
+.green{
+background-color: rgb(42, 165, 114);
+color: white;
 
+}
+.blue{
+background-color: rgb(46, 42, 165);
+
+}
+.red{
+background-color: rgb(165, 42, 108);
+
+}
+
+.table td{
+    padding: 0;
+    vertical-align:middle;
+    height: 50px;
+}
+
+
+</style>
 </table>
 
 {{calendar}}

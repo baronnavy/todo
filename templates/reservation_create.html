@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<p>{{ view.kwargs.year }}年{{ view.kwargs.month }}月{{ view.kwargs.day }}日 {{ view.kwargs.hour }}時に予約</p>
+
 <form action='' method='POST'>{% csrf_token %}
+
     <form action="" method="post">
         　　{% csrf_token %}
         {{form.as_p}}
         　　
     
         　　<div class="form-group col-md-11">
-            　　<button type="submit" class="btn btn-block btn-outline-primary">save</button>
+           
+            　　<button type="submit" class="btn btn-block btn-outline-primary">aaa</button>
         </div>
 </form>
 {% endblock content %}

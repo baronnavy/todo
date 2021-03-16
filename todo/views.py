@@ -242,7 +242,7 @@ class ResevationUpdate(UpdateView):
     #     return redirect('reservation',pk=article.pk)
 
 class ResevationCreate(CreateView):
-    template_name = 'reservation_update.html'
+    template_name = 'reservation_create.html'
     model = TodoModel
     fields = ('article', 'start', 'end', 'company','floor')
 
@@ -251,7 +251,7 @@ class ResevationCreate(CreateView):
         # context['staff'] = get_object_or_404(Staff, pk=self.kwargs['pk'])
         return context
 
-    # success_url = reverse_lazy('reservation')
+    success_url = reverse_lazy('reservation')
     # def form_valid(self, form):
     #     # article = self.kwargs.get('pk')
     #     year = self.kwargs.get('year')
