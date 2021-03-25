@@ -416,6 +416,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
   var the_json = JSON.parse('{{qs_json|escapejs}}');
 
+ 
   $('.chara').on('click', function () {
     $(".chara").removeClass("selected");
     $(this).addClass("selected");
@@ -430,19 +431,37 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
           '<p>最終検知時刻:' + the_json[i].duedate + '</p>' +
           '<p>予定:A社 7F</p>' +
           '<p>実績:A社 6F</p>' +
-          '<canvas id="canvas" width="600" height="500"  style="background-color:yellow;"></canvas>'
+          '<canvas id="canvas" width="600" height="500"></canvas>'
         );
         var x = the_json[i].x * 10
       }
     }
+    
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
     var background = new Image();
     var icon = new Image();
+
+
+    setLoadAllCallback([background, icon], function(elems) {
+    // すべての要素の読み込みが終わったときに呼び出される
+    ctx.drawImage(background, 10, 10, 300, 200);
+    ctx.font = '170pt Arial';
+    ctx.fillStyle = "rgba(255,45,45,0.5)";
+    ctx.beginPath();
+    ctx.arc(x, x, 70, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
+    ctx.fill();
+    ctx.drawImage(icon, x - 50, x - 50, 100, 100);
+
+});
+   
+    
+
     icon.src = "/media/b.png";
+    
     if (nameVal == 'bb') {
       background.src = "/media/a.png";
-    } else if (nameVal == 'dd') {
+    } else if (nameVal == 'cc') {
       background.src = "/media/a.png";
     } else {
 
@@ -450,23 +469,21 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
 
     var canvas_width = 550;
     // ctx.drawImage(background,10,10,canvas_width, background.height * canvas_width / background.width);
-    
-      
-    ctx.drawImage(background, 10, 10, 300, 200);
-
-    ctx.font = '170pt Arial';
-    ctx.fillStyle = "rgba(255,45,45,0.5)";
-    ctx.beginPath();
-    ctx.arc(x, x, 70, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
-    ctx.fill();
-
-    icon.onload = function () {
-      ctx.drawImage(icon, x - 50, x - 50, 100, 100);
-    }
 
   });
 
-
+  function setLoadAllCallback(elems, callback) {
+    var count = 0;
+    for (var i = 0; i < elems.length; ++i) {
+        elems[i].onload = function() {
+            ++count;
+            if (count == elems.length) {
+                // All elements have been loaded.
+                callback(elems);
+            }
+        };
+    }
+}
 
 
 
