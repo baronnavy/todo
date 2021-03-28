@@ -74,7 +74,7 @@
   </div>
 
   <div class="row">
-    <div class="card col-6 offset-2">
+    <div class="card col-10 offset-2" id="col1">
       <div class="card-header bg-secondary ">
         データ
       </div>
@@ -95,7 +95,7 @@
         </table>
       </div>
     </div>
-    <div class="card col-4">
+    <div class="card col-4 detail" id="col2">
       <div class="card-header bg-secondary m-0">
         詳細
       </div>
@@ -233,6 +233,10 @@
   .selected{
     background-color: aquamarine !important;;
   }
+
+  .detail{
+display:none;
+}
 </style>
 
 <!-- <style>
@@ -419,6 +423,9 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
  
   $('.chara').on('click', function () {
     $(".chara").removeClass("selected");
+    $("#col1").removeClass("col-10");
+    $("#col1").addClass("col-6");
+    $("#col2").removeClass("detail");
     $(this).addClass("selected");
     var nameVal = $(this).children('td')[0].innerText;
     // alert(' name: '+ nameVal);
