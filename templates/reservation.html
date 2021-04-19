@@ -52,15 +52,15 @@
             <td >
                 {% if name == 1 %}
                 <div class="green ">
-                    <a href="{% url 'reservation_create' dt.year %}">○<br>maru</a> 
+                    <a href="{% url 'reservation_create' dt.year %}"><br><br></a> 
                 </div>
                 {% elif name == 2 %}
                 <div class="blue ">
-                    <a href="{% url 'reservation_create' dt.year %}">○<br>maru</a> 
+                    <a href="{% url 'reservation_create' dt.year %}"><br><br></a> 
                 </div>
                 {% elif name == 3 %}
                 <div class="red ">
-                    <a href="{% url 'reservation_create' dt.year %}">○<br>maru</a> 
+                    <a href="{% url 'reservation_create' dt.year %}"><br><br></a> 
                 </div>
                 {% endif %}
             </td>
@@ -72,7 +72,13 @@
             {{ name }}
         </td>
     </tr>
+
+    
+
 {% endfor %}
+
+<canvas id="canvas1" width="600" height="100" class='bg-light'></canvas>
+<div class='col-4'>9  10  11  12  13  14  15  16  17  18</div>
 
 <style>
 .green{
@@ -99,7 +105,46 @@ background-color: rgb(165, 42, 108);
 </style>
 </table>
 
-{{calendar}}
+<script type="text/javascript">
+    (function(){
+      var canvas1 = document.getElementById('canvas1');
+      
 
+      var datas = [0, 100, 100, 0, 0, 100,100,0,0];
+      var stroke_opts = {
+        color: 'balck',
+        width: 2
+      };
+      var fill_opts = {
+        color: 'red'
+      }
+      barGraph(canvas1, datas, stroke_opts, fill_opts);
+
+      function barGraph(canvas_obj, datas, stroke_opts, fill_opts){
+        var c = canvas_obj.getContext('2d');
+
+        // bar
+        var pos = 0;
+        var bar_width = canvas_obj.width / datas.length;
+        for (var i = 0; i < datas.length; i++){
+          var barPos = {
+            x: pos,
+            y: canvas_obj.height - datas[i],
+            w: bar_width
+          };
+          bar(c, datas[i], barPos, stroke_opts, fill_opts);
+          pos += bar_width;
+        }
+
+        function bar(context, data, barPos, stroke_opts, fill_opts) {
+          context.strokeStyle = stroke_opts.color;
+          context.lineWidth = stroke_opts.width;
+          context.strokeRect(barPos.x, barPos.y, barPos.w, data);
+          context.fillStyle = fill_opts.color;
+          context.fillRect(barPos.x, barPos.y, barPos.w, data);
+        }
+      }
+    })();
+  </script>
 
 {% endblock content %}

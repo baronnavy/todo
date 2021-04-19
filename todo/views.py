@@ -190,7 +190,7 @@ class Reservation(ListView):
         context = super().get_context_data(**kwargs)
 
         today = datetime.datetime.today()
-        days = [today + datetime.timedelta(hours=hour) for hour in range(0,24*7,12)]
+        days = [today + datetime.timedelta(hours=hour) for hour in range(0,72,1)]
         start_day = days[0]
         end_day = days[-1]
 
